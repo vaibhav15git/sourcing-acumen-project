@@ -1,0 +1,140 @@
+.login-main {
+    background-color: #635587;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.5s ease; /* Fade-in animation */
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.containerr {
+    width: 70%;
+    height: 90vh;
+    padding: 2% 5% 8% 5%;
+    margin: 0% auto;
+    border-radius: 55px;
+    background: url(/public/assets/IMG_20240701_161804.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative; /* Needed for nested animation */
+    overflow: hidden; /* Prevent children overflow */
+    animation: slideIn 0.8s ease;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.containerr > form {
+    width: 60%; /* Adjusted to full width */
+    margin: 5% auto;
+    /* background: url(/src/components/home/grid-2.png);
+    background-repeat: no-repeat;
+    background-size: cover; */
+    animation: slideUp 0.5s ease; /* Slide-up animation */
+}
+
+
+.logo-img{
+    width: 50%;
+    padding: 0%;
+    margin: 0% auto;
+    height: 80%;
+    
+}
+
+.logo-img>img{
+    width: 100%;
+    border-radius: 15px;
+}
+
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.containerr > form > div > label {
+    color: white;
+}
+
+@media (max-width:768px){
+    .width-edit{
+        /* margin: 5% 0%; */
+        width: 100% !important;
+    }
+    
+}
+
+.containerr > form > div > input{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-radius: 0%;
+    border-bottom: 2px solid white;
+    width: 100%;
+    color: white;
+}
+
+.containerr > form > div > input::placeholder{
+    color: white;
+}
+
+.containerr > form > div{
+    background-color: transparent;
+
+}
+
+.containerr > form > .btn-edit > button {
+    width: 100%;
+    margin-top: 10px; /* Increased margin */
+    transition: transform 0.3s ease; /* Button hover effect */
+}
+
+.containerr > form > .btn-edit > button:hover {
+    transform: scale(1.1);
+}
+
+.forgot-p-edit > .btn {
+    width: 100%;
+    color: white;
+    text-align: center;
+    font-size: 12px;
+    transition: opacity 0.3s ease; /* Button fade-in effect */
+}
+
+.forgot-p-edit > .btn:hover {
+    opacity: 0.8;
+}
+
+
+@media (max-width: 768px) {
+    .containerr > form {
+        width: 100%;
+    }
+    .containerr {
+        width: 95%;
+        padding: 1% 1% 5%;
+    }
+}
