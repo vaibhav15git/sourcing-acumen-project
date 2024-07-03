@@ -65,8 +65,9 @@ const UserLandingPage = () => {
                   <i className="fas fa-upload fa-2x mb-2" />
                 </div>
                 <Button
-                  variant="info"
-                  className="px-5 py-2 w-50 m-auto"
+                  style={{ backgroundColor: "#223244" }}
+                  variant=""
+                  className="px-5 py-2 w-50 m-auto text-white"
                   onClick={() => document.getElementById("fileInput").click()}
                 >
                   Browse
@@ -86,8 +87,9 @@ const UserLandingPage = () => {
                   <i className="fas fa-upload fa-2x mb-2" />
                 </div>
                 <Button
-                  variant="info"
-                  className="px-5 py-2 w-50 m-auto"
+                  style={{ backgroundColor: "#223244" }}
+                  variant=""
+                  className="px-5 py-2 w-50 m-auto text-white"
                   onClick={() => document.getElementById("fileInput").click()}
                 >
                   Browse
@@ -148,7 +150,7 @@ const UserLandingPage = () => {
                 </button>
                 <button
                   type="button"
-                  className="btn btn-primary"
+                  className="btn btn-danger"
                   data-bs-dismiss="modal"
                   onClick={() => handleLogout()}
                 >

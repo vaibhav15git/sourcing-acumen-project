@@ -456,8 +456,9 @@ const AdminUserList = () => {
               <div className="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
                 <div>
                   <button
+                  style={{backgroundColor:"goldenrod"}}
                     type="button"
-                    className="btn btn-primary me-5"
+                    className="btn me-5 text-blue"
                     data-bs-toggle="modal"
                     data-bs-target="#add-modal-form"
                   >
@@ -725,7 +726,7 @@ const AdminUserList = () => {
                   </button>
                   <button
                     type="button"
-                    className="btn btn-primary"
+                    className="btn btn-danger"
                     data-bs-dismiss="modal"
                     onClick={() => handleLogout()}
                   >
