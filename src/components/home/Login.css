@@ -1,11 +1,65 @@
+
+
+
+
+
+
+.navy-strip{
+    background-color: #223244;
+    height: 1rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.gradient-strip{
+     background: linear-gradient(to right, rgb(14, 14, 174), rgb(226, 50, 209));
+       height: 1rem !important;
+    margin-bottom: 0.6rem !important;
+
+}
+
+.company-name h1{
+    color: rgb(172, 151, 30);
+     font-size: 70px !important;
+     font-weight: bold;
+     text-align: center;
+}
+
+
+
+
+
+
+
+
+
 .login-main {
     background-color: #635587;
-    height: 100vh;
+    width: 50%;
+    height: 60vh;
+    /* padding: 2% 5% 8% 5%; */
+    margin: 0% auto;
     display: flex;
     justify-content: center;
     align-items: center;
+    
+    /* height: 100vh; */
+    
     animation: fadeIn 0.5s ease; /* Fade-in animation */
 }
+
+.main-body{
+    background-color: #223244;
+    height: 80vh !important;
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* position: relative; 
+    overflow: hidden; 
+    animation: slideIn 0.8s ease; */
+}
+
+
 
 @keyframes fadeIn {
     0% {
@@ -19,17 +73,15 @@
 }
 
 .containerr {
-    width: 70%;
-    height: 90vh;
+    width: 96%;
+    height: 95%;
     padding: 2% 5% 8% 5%;
     margin: 0% auto;
-    border-radius: 55px;
+    border-radius: 40px;
     background: url(/public/assets/IMG_20240701_161804.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    position: relative; /* Needed for nested animation */
-    overflow: hidden; /* Prevent children overflow */
-    animation: slideIn 0.8s ease;
+    
 }
 
 @keyframes slideIn {
@@ -43,7 +95,7 @@
 
 .containerr > form {
     width: 60%; /* Adjusted to full width */
-    margin: 5% auto;
+    margin: 1% auto;
     /* background: url(/src/components/home/grid-2.png);
     background-repeat: no-repeat;
     background-size: cover; */
@@ -116,17 +168,7 @@
     transform: scale(1.1);
 }
 
-.forgot-p-edit > .btn {
-    width: 100%;
-    color: white;
-    text-align: center;
-    font-size: 12px;
-    transition: opacity 0.3s ease; /* Button fade-in effect */
-}
 
-.forgot-p-edit > .btn:hover {
-    opacity: 0.8;
-}
 
 
 @media (max-width: 768px) {
@@ -137,4 +179,49 @@
         width: 95%;
         padding: 1% 1% 5%;
     }
+    .company-name h1{
+        color: rgb(172, 151, 30);
+        font-size: 40px !important;
+    }
+    .login-main {
+        width: 80%;
+        height: 60vh;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1400px) {
+    .company-name h1{
+        font-size: 60px !important;
+    }
+}
+
+@media (max-width: 426px){
+    .company-name h1{
+        font-size: 30px !important;
+    }
+    .width-edit{
+        gap: 0 !important;
+    }
+    .g-5{
+    --bs-gutter-y: 2rem;
+    }
+}
+
+
+.select-cat-div{
+    border-radius: 40px;
+    background: rgb(5,38,98);
+    background: linear-gradient(90deg, rgba(5,38,98,1) 0%, rgba(34,84,161,1) 39%, rgba(0,212,255,1) 100%);
+    /* opacity: 50%; */
+}
+.select-cat-section{
+      background-color: goldenrod;
+      color: white;
+}
+
+.click-here-btn{
+    background-color: goldenrod;
+}
+.click-here-btn:hover{
+    background-color: gold !important;
 }

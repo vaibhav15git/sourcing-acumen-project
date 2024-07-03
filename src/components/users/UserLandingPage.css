@@ -1,0 +1,135 @@
+.landing-page-main-div {
+  background-color: #223244;
+  height: 80vh;
+}
+.right-side-main-div {
+  width: 20rem;
+  height: 4rem;
+  /* border: 1px solid red; */
+  margin-top: 1rem;
+}
+.right-side-navbar-first-div {
+  height: 4rem;
+  width: 12rem;
+  background-color: goldenrod;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border: 2px solid black;
+}
+.right-side-navbar-second-div {
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  background-color: goldenrod;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.arrow-shape {
+  position: relative;
+  background-color: goldenrod; /* Adjust the color to match the image */
+  color: white;
+  padding: 9px 20px;
+  font-size: 1.2em;
+  font-family: Arial, sans-serif;
+  display: inline-block;
+  text-align: center;
+  border-top-left-radius: -50px;
+  line-height: 2.2;
+  width: 20%;
+}
+.arrow-shape:after {
+  content: "";
+  position: absolute;
+  right: -36px;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-top: 32px solid transparent;
+  border-bottom: 30px solid transparent;
+  border-left: 37px solid goldenrod;
+}
+
+@media (max-width: 767px) {
+    .arrow-shape{
+        font-size: 0.8rem;
+        width: 30%;
+        height: 59px;
+        margin: auto auto;
+    }
+    .remove-logo{
+        /* display: none !important; */
+        width: 50% !important;
+        padding: auto;
+        
+    }
+    .remove-logo>img{
+        width: 100% !important;
+        height: 70%;
+        /* margin: auto 1% !important; */
+    }
+    .right-side-main-div{
+        width: 100% !important;
+        margin-bottom: 1rem;
+        justify-content: end !important;
+        margin-right: 10px;
+    }
+    .right-side-navbar-first-div{
+        display: none !important;
+    }
+    .landing-page-main-div{
+        height: 100% !important;
+    }
+    .full-width-button{
+        margin-bottom: 1rem !important;
+    }
+}
+.space-btw {
+  margin-left: 50px;
+}
+
+.full-width-button {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: goldenrod;
+  color: white;
+  border: none;
+}
+.full-width-button:hover {
+  background-color: goldenrod !important;
+}
+
+.right-side-navbar-second-div {
+  position: relative;
+}
+
+
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  z-index: 1000;
+}
+
+.dropdown-menu button {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-menu button:hover {
+  background-color: #f0f0f0;
+}

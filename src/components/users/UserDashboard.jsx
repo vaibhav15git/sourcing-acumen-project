@@ -102,8 +102,12 @@ const Sidebar = () => {
           <CDBSidebarMenuItem icon="th-large">
             <Link to="/user-dashboard">Dashboard</Link>
           </CDBSidebarMenuItem>
-          <CDBSidebarMenuItem icon="fa-solid fa-upload">
+          {/* <CDBSidebarMenuItem icon="fa-solid fa-upload">
             <Link to="/user-upload-files">Upload Data</Link>
+          </CDBSidebarMenuItem> */}
+
+          <CDBSidebarMenuItem icon="fa-solid fa-upload">
+            <Link to="/user-landing-page">Input Data</Link>
           </CDBSidebarMenuItem>
           {/* <CDBSidebarMenuItem icon="fa-solid fa-database">
             <Link to="/user-power-bi-data">View Data</Link>

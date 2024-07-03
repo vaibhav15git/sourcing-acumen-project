@@ -1,0 +1,80 @@
+.user-uploaded-data .table-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.user-uploaded-data .pagination-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.user-uploaded-data .pagination {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+}
+
+.user-uploaded-data .page-item {
+  margin: 0 5px;
+}
+
+.user-uploaded-data .page-link {
+  color: #007bff;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.user-uploaded-data .page-link:hover {
+  color: #0056b3;
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+}
+
+.user-uploaded-data .page-item.active .page-link {
+  color: #fff;
+  background-color: #f4ae92 !important;
+  border-color: #33ff00 !important;
+}
+
+.user-uploaded-data .page-item.disabled .page-link {
+  color: #6c757d;
+  pointer-events: none;
+  background-color: #fff;
+  border-color: #dee2e6;
+}
+
+/* UserUploadedData.css */
+.sidebar-wrapper {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 1000;
+}
+
+.content-wrapper {
+  margin-left: 270px; /* Adjust this value based on your sidebar width */
+  width: calc(100% - 270px);
+  padding: 20px;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+  .sidebar-wrapper {
+    position: static;
+    height: auto;
+  }
+
+  .content-wrapper {
+    margin-left: 0;
+    width: 100%;
+  }
+}

@@ -15,6 +15,8 @@ import UserUploadedData from "../components/users/UserUploadedData";
 // import ColumnMapping from "../components/admin/ColumnMapping";
 // import UsersColumnMapping from "../components/users/UsersColumnMapping";
 import Login from "../components/home/Login";
+import UserLandingPage from "../components/users/UserLandingPage";
+import ChooseVariables from "../components/users/ChooseVariables";
 // import Dashboard from "../components/user/Dashboard";
 
 // Higher-order component to protect routes
@@ -60,6 +62,11 @@ const AllRoutes = () => {
           element={<ProtectedRoute element={<UserPowerBiData />} />}
         />
         <Route path="/user-uploaded-data" element={<UserUploadedData />} />
+        <Route
+          path="/user-landing-page"
+          element={<ProtectedRoute element={<UserLandingPage />} />}
+        />
+        <Route path="/choose-variables-page" element={<ChooseVariables />} />
         {/* <Route path="/users-column-mapping" element={<UsersColumnMapping />} /> */}
       </Routes>
     </div>
