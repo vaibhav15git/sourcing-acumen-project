@@ -2,3 +2,45 @@
     background-color: #223244;
     height: 80vh;
 }
+/* .overflow-container {
+            height: 400px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+        } */
+            .overflow-container {
+            height: 400px;
+            overflow-y: hidden;
+            /* transition: overflow-y 0.3s ease; */
+        }
+
+        .overflow-container:hover {
+            overflow-y: auto;
+        }
+
+        .overflow-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .overflow-container::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 3px;
+        }
+
+        .overflow-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .overflow-container:not(:hover)::-webkit-scrollbar-thumb {
+            background-color: transparent;
+        }
+
+        .variable-btn {
+            background-color: transparent;
+            color: white;
+            border: none;
+        }
+        .response-btn {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+        }

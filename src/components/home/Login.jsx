@@ -514,13 +514,11 @@ const Login = () => {
               <div className="row ms-1 mt-4 select-cat-div py-5 h-75">
                 <div className="col-12 col-lg-6 mb-3 mb-lg-0">
                   <select
-                    className="form-select  rounded-1 border-0 py-2 px-2 select-cat-section"
+                    className="form-select rounded-0 border-0 py-2 px-2 select-cat-section"
                     value={selectedCategory}
                     onChange={handleCategoryChange}
                   >
-                    <option  value="">
-                      Select a category
-                    </option>
+                    <option value="">Select a category</option>
                     {categories.map((user) => (
                       <option
                         className="bg-light text-black"

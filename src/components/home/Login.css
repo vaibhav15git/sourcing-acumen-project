@@ -33,7 +33,7 @@
 
 
 .login-main {
-    background-color: #635587;
+    /* background-color: #635587; */
     width: 50%;
     height: 60vh;
     /* padding: 2% 5% 8% 5%; */
@@ -209,19 +209,45 @@
 
 
 .select-cat-div{
-    border-radius: 40px;
+    /* border-radius: 40px;
     background: rgb(5,38,98);
-    background: linear-gradient(90deg, rgba(5,38,98,1) 0%, rgba(34,84,161,1) 39%, rgba(0,212,255,1) 100%);
+    background: linear-gradient(90deg, rgba(5,38,98,1) 0%, rgba(34,84,161,1) 39%, rgba(0,212,255,1) 100%); */
     /* opacity: 50%; */
+    
 }
 .select-cat-section{
-      background-color: goldenrod;
+      /* background: rgb(5,166,199); */
+        /* background: linear-gradient(90deg, rgba(5,166,199,1) 0%, rgba(21,110,158,1) 52%, rgba(0,46,128,1) 100%); */
+        border: none !important;
+        border-bottom: 2px solid white !important;
+        border-radius: 0px !important;
+        outline: none;
+        background-color: transparent !important;
       color: white;
 }
+.select-cat-section {
+  background-color: #000; /* Set background color if needed */
+  color: white; /* Change text color */
+  border: none; /* Remove border if needed */
+  padding: 10px; /* Adjust padding if needed */
+  -webkit-appearance: none; /* Remove default arrow in WebKit browsers */
+  -moz-appearance: none; /* Remove default arrow in Firefox */
+  appearance: none; /* Remove default arrow in modern browsers */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4.1 6.9"><path fill="white" d="M2.1 6.9L0 4.8 4.1 4.8z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px;
+}
+
+.select-cat-section>option:hover{
+    background-color: #223244 !important;
+}
+
 
 .click-here-btn{
-    background-color: goldenrod;
+    background: rgb(110, 155, 169);
+        /* background: linear-gradient(90deg, rgba(5,166,199,1) 0%, rgba(21,110,158,1) 52%, rgba(0,46,128,1) 100%); */
 }
 .click-here-btn:hover{
-    background-color: gold !important;
+    background: rgb(126, 178, 194);
 }
