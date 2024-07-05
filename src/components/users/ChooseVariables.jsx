@@ -3,6 +3,7 @@ import logo from "./Logo.jpg";
 import { Container, Row, Col, Button, ListGroup } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import "./ChooseVariables.css";
+import UserNavbar from "./UserNavbar";
 
 const ChooseVariables = () => {
   const navigate = useNavigate();
@@ -14,30 +15,7 @@ const ChooseVariables = () => {
   };
   return (
     <>
-      <nav>
-        <div className="navbar-logo">
-          <div className="d-flex justify-content-between">
-            <div className="w-50 remove-logo">
-              {" "}
-              <img src={logo} alt="" />
-            </div>
-            <div className="d-flex justify-content-evenly right-side-main-div">
-              {/* <div className="right-side-navbar-first-div">
-                <h4>User Center</h4>
-              </div> */}
-              <div
-                className="right-side-navbar-second-div"
-                data-bs-toggle="modal"
-                data-bs-target="#logout-modal"
-              >
-                <h3>VJ</h3>
-              </div>
-            </div>
-          </div>
-          <div className="navy-strip"></div>
-          <div className="gradient-strip"></div>
-        </div>
-      </nav>
+     <UserNavbar/>
 
       <div className="choose-variable-main-div">
         <span className=" d-flex float-end mt-3 me-4">

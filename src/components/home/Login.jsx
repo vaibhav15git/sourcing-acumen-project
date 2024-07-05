@@ -360,7 +360,7 @@ import "./Login.css";
 import logo from "../home/Logo.jpg";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -418,6 +418,7 @@ const Login = () => {
 
         localStorage.setItem("token", token);
         localStorage.setItem("userId", user.id);
+        localStorage.setItem("username", user.name);
 
         if (user.role === "user") {
           setUserCategory(user.category);
@@ -503,26 +504,42 @@ const Login = () => {
                   )}
                 </div>
                 <div className="col-12 btn-edit">
-                  <button type="submit" className="btn btn-primary">
-                    Sign in
+                  <button type="submit" className="btn btn-info text-white">
+                    Sign In
                   </button>
+                  {/* <div
+                    style={{ width: "100%" }}
+                    className=" justify-content-center pt-3 "
+                   >
+                    <Link to="" className="">
+                      <button
+                        type="submit"
+                        className="btn button new-btn3"
+                      >
+                        <span className="button-content" >Sign In</span>
+                      </button>
+                    </Link>
+                  </div> */}
                 </div>
               </form>
             )}
 
             {showCategory && (
-              <div className="row ms-1 mt-4 select-cat-div py-5 h-75">
-                <div className="col-12 col-lg-6 mb-3 mb-lg-0">
+              <div className=" mt-4 select-cat-div py-5 h-75">
+                <div className="col-12 col-lg-6 mb-3 mb-lg-0 mx-auto">
                   <select
-                    className="form-select rounded-0 border-0 py-2 px-2 select-cat-section"
+                    className=" w-100 rounded-0 border-0 py-2 px-2 select-cat-section"
                     value={selectedCategory}
                     onChange={handleCategoryChange}
                   >
-                    <option value="">Select a category</option>
+                    <option value="" style={{ backgroundColor: "#223244" }}>
+                      Select a category
+                    </option>
                     {categories.map((user) => (
                       <option
-                        className="bg-light text-black"
+                        className="option-bg text-white"
                         key={user.id}
+                        // style={{ background:"black" }}
                         value={user.category}
                       >
                         {user.category}
@@ -533,10 +550,13 @@ const Login = () => {
                 {categorySelected && (
                   <div
                     style={{ height: "min-content" }}
-                    className="col-12 col-lg-6 d-flex  justify-content-lg-end"
+                    className="col-12 col-lg-6 d-flex mt-5 mx-auto justify-content-lg-end"
                   >
-                    <button
+                    <div
+                      style={{ width: "100%" }}
+                      className=" justify-content-center pt-3 mt-4 button new-btn3"
                       onClick={() => {
+                        console.log("nsn");
                         if (selectedCategory === userCategory) {
                           navigate("/user-landing-page", {
                             state: { category: selectedCategory },
@@ -545,11 +565,14 @@ const Login = () => {
                           toast.error("Please select your assigned category.");
                         }
                       }}
-                      className="btn w-100 w-lg-auto py-2 click-here-btn"
-                      type="button"
                     >
-                      Click Here to Continue
-                    </button>
+                      <div className="click-here-button">Click Here to Continue</div>
+                      {/* <Link to="" className="button-link ">
+                        <button className="">
+                          <span className="button-content"></span>
+                        </button>
+                      </Link> */}
+                    </div>
                   </div>
                 )}
               </div>

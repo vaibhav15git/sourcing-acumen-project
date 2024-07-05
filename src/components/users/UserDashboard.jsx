@@ -78,12 +78,13 @@ import {
 } from "cdbreact";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "./Logo.png";
+import UserNavbar from "./UserNavbar";
 
 
 
 const Sidebar = () => {
   return (
-    <CDBSidebar textColor="#333" backgroundColor="#f0f0f0">
+    <CDBSidebar textColor="#333" backgroundColor="#ffffff">
       <CDBSidebarHeader prefix={<i className="fa fa-bars" />}>
         <div
           className="container"
@@ -150,7 +151,9 @@ const UserDashboard = () => {
     <>
       <div className="d-flex">
         <Sidebar />
+
         <div className="flex-grow-1">
+          <UserNavbar/>
           <div className="container-fluid mt-4 text-center fw-bold">
             <h1>Welcome to User Dashboard !</h1>
           </div>
