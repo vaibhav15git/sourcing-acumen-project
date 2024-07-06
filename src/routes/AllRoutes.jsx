@@ -19,6 +19,7 @@ import UserLandingPage from "../components/users/UserLandingPage";
 import ChooseVariables from "../components/users/ChooseVariables";
 import ExcelUploader from "../components/users/Demo";
 import NewExcelUploader from "../components/users/Dummy_2";
+import Table2 from "../components/users/Table2";
 // import Dashboard from "../components/user/Dashboard";
 
 // Higher-order component to protect routes
@@ -71,6 +72,7 @@ const AllRoutes = () => {
         <Route path="/choose-variables-page" element={<ChooseVariables />} />
         <Route path="/excel-uploader" element={<ExcelUploader />} />
         <Route path="/new-excel-uploader" element={<NewExcelUploader />} />
+        <Route path="/table-2-data" element={<Table2 />} />
         {/* <Route path="/users-column-mapping" element={<UsersColumnMapping />} /> */}
       </Routes>
     </div>

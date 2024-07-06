@@ -278,96 +278,57 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {
-  CDBSidebar,
-  CDBSidebarHeader,
-  CDBSidebarMenuItem,
-  CDBSidebarContent,
-  CDBSidebarMenu,
-} from "cdbreact";
-import { Link, useNavigate } from "react-router-dom";
-import Logo from "./Logo.png";
-import UserNavbar from "./UserNavbar";
 
-const Sidebar = () => {
-  return (
-    <CDBSidebar textColor="#333" backgroundColor="#f0f0f0">
-      <CDBSidebarHeader prefix={<i className="fa fa-bars" />}>
-        <div
-          className="container"
-          style={{ display: "flex", alignItems: "center" }}
-        >
-          <img
-            src={Logo}
-            alt=""
-            style={{ width: "100%", marginTop: "-20px", marginLeft: "-30px" }}
-          />
-        </div>
-      </CDBSidebarHeader>
-      <CDBSidebarContent>
-        <CDBSidebarMenu>
-          <CDBSidebarMenuItem icon="th-large">
-            <Link to="/user-dashboard">Dashboard</Link>
-          </CDBSidebarMenuItem>
-          <CDBSidebarMenuItem icon="fa-solid fa-upload">
-            <Link to="/user-landing-page">Input Data</Link>
-          </CDBSidebarMenuItem>
-          <CDBSidebarMenuItem icon="fa-solid fa-server">
-            <Link to="/user-uploaded-data">Data</Link>
-          </CDBSidebarMenuItem>
-          <CDBSidebarMenuItem icon="fa-solid fa-backward">
-            <button
-              type="button"
-              className="btn btn-link p-0 text-decoration-none text-black"
-              data-bs-toggle="modal"
-              data-bs-target="#logout-modal"
-            >
-              Logout
-            </button>
-          </CDBSidebarMenuItem>
-        </CDBSidebarMenu>
-      </CDBSidebarContent>
-    </CDBSidebar>
-  );
-};
+import { Link, useNavigate } from "react-router-dom";
+import UserNavbar from "./UserNavbar";
+import UserSidebar from "./UserSidebar";
+
 
 const UserUploadedData = () => {
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
 
- useEffect(() => {
-   setLoading(true);
-   axios
-     .get(`https://testsignuplogin.onrender.com/login/filedata/${userId}`, {
-       headers: {
-         Authorization: `Bearer ${token}`,
-       },
-     })
-     .then((response) => {
-       console.log("API Response:", response.data);
-       if (Array.isArray(response.data) && response.data.length > 0) {
-         const columnNames = Object.keys(response.data[0]);
-         setColumns(columnNames);
-         setData(response.data);
-       } else {
-         console.error("Expected an array but got:", response.data);
-         setColumns([]);
-         setData([]);
-       }
-     })
-     .catch((error) => {
-       console.error("Error fetching data:", error);
-       setColumns([]);
-       setData([]);
-     })
-     .finally(() => {
-       setLoading(false);
-     });
- }, [token, userId]);
+  const rowsPerPage = 10;
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(
+        `https://testsignuplogin.onrender.com/login/filedata1/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log("API Response:", response.data);
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          const columnNames = Object.keys(response.data[0]);
+          setColumns(columnNames);
+          setData(response.data);
+          setTotalPages(Math.ceil(response.data.length / rowsPerPage));
+        } else {
+          console.error("Expected an array but got:", response.data);
+          setColumns([]);
+          setData([]);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setColumns([]);
+        setData([]);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [token, userId]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -375,16 +336,25 @@ const UserUploadedData = () => {
     navigate("/");
   };
 
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const paginatedData = data.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
+
   return (
     <div className="user-uploaded-data">
       <div className="d-flex">
         <div className="sidebar-wrapper">
-          <Sidebar handleLogout={handleLogout} />
+          <UserSidebar handleLogout={handleLogout} />
         </div>
         <div className="flex-grow-1">
           <UserNavbar />
           <div className="container-fluid mt-4">
-            <h1>Hotel Data</h1>
+            <h1>Table 1 Data</h1>
             {loading ? (
               <div className="text-center">
                 <div className="spinner-border" role="status">
@@ -393,28 +363,90 @@ const UserUploadedData = () => {
                 <p>Wait a sec...</p>
               </div>
             ) : (
-              <div className="table-responsive">
-                <table className="table table-hover table-nowrap align-middle table-borderless">
-                  <thead>
-                    <tr className="table-success">
-                      {columns.map((columnName, index) => (
-                        <th key={index} scope="col">
-                          {columnName}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data.map((rowData, rowIndex) => (
-                      <tr key={rowIndex}>
-                        {columns.map((columnName, colIndex) => (
-                          <td key={colIndex}>{rowData[columnName]}</td>
+              <>
+                <div className="table-responsive">
+                  <table className="table table-hover table-nowrap align-middle table-borderless">
+                    <thead>
+                      <tr className="table-success">
+                        {columns.map((columnName, index) => (
+                          <th key={index} scope="col">
+                            {columnName}
+                          </th>
                         ))}
                       </tr>
+                    </thead>
+                    <tbody>
+                      {paginatedData.map((rowData, rowIndex) => (
+                        <tr key={rowIndex}>
+                          {columns.map((columnName, colIndex) => (
+                            <td key={colIndex}>{rowData[columnName]}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <nav
+                  className="pagination-container float-end me-5"
+                  aria-label="Page navigation"
+                >
+                  <ul className="pagination">
+                    <li
+                      className={`page-item ${
+                        currentPage === 1 ? "disabled" : ""
+                      }`}
+                    >
+                      <a
+                        className="page-link"
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handlePageChange(currentPage - 1);
+                        }}
+                        aria-label="Previous"
+                      >
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    {[...Array(totalPages)].map((_, i) => (
+                      <li
+                        key={i}
+                        className={`page-item ${
+                          currentPage === i + 1 ? "active" : ""
+                        }`}
+                      >
+                        <a
+                          className="page-link"
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handlePageChange(i + 1);
+                          }}
+                        >
+                          {i + 1}
+                        </a>
+                      </li>
                     ))}
-                  </tbody>
-                </table>
-              </div>
+                    <li
+                      className={`page-item ${
+                        currentPage === totalPages ? "disabled" : ""
+                      }`}
+                    >
+                      <a
+                        className="page-link"
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handlePageChange(currentPage + 1);
+                        }}
+                        aria-label="Next"
+                      >
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </>
             )}
           </div>
         </div>
@@ -441,7 +473,7 @@ const UserUploadedData = () => {
                 className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
-              />
+              ></button>
             </div>
             <div className="modal-footer justify-content-center">
               <button
@@ -455,7 +487,7 @@ const UserUploadedData = () => {
                 type="button"
                 className="btn btn-danger"
                 data-bs-dismiss="modal"
-                onClick={() => handleLogout()}
+                onClick={handleLogout}
               >
                 Log Out
               </button>

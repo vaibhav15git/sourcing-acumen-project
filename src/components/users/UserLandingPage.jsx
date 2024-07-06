@@ -4,88 +4,57 @@ import "./UserLandingPage.css";
 import { Container, Row, Col, Button, ListGroup } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import {
-  CDBSidebar,
-  CDBSidebarHeader,
-  CDBSidebarMenuItem,
-  CDBSidebarContent,
-  CDBSidebarMenu,
-} from "cdbreact";
-import Logo from "./Logo.png";
 import UserNavbar from "./UserNavbar";
 import file_1 from "./file-1.svg";
 import file_2 from "./file-2.svg";
 import file_3 from "./file-3.svg";
 import { toast } from "react-toastify";
 import * as XLSX from "xlsx";
+import UserSidebar from "./UserSidebar";
 
-const Sidebar = () => {
-  return (
-    <CDBSidebar textColor="#333" backgroundColor="#ffffff">
-      <CDBSidebarHeader prefix={<i className="fa fa-bars" />}>
-        <div
-          className="container"
-          style={{ display: "flex", alignItems: "center" }}
-        >
-          <img
-            src={Logo}
-            alt=""
-            style={{ width: "100%", marginTop: "-20px", marginLeft: "-30px" }}
-          />
-          {/* <h6 className="ms-2">Resourcing Acumen</h6> */}
-        </div>
-      </CDBSidebarHeader>
-      <CDBSidebarContent>
-        <CDBSidebarMenu>
-          <CDBSidebarMenuItem icon="th-large">
-            <Link to="/user-dashboard">Dashboard</Link>
-          </CDBSidebarMenuItem>
-          {/* <CDBSidebarMenuItem icon="fa-solid fa-upload">
-            <Link to="/user-upload-files">Upload Data</Link>
-          </CDBSidebarMenuItem> */}
-
-          <CDBSidebarMenuItem icon="fa-solid fa-upload">
-            <Link to="/user-landing-page">Input Data</Link>
-          </CDBSidebarMenuItem>
-          {/* <CDBSidebarMenuItem icon="fa-solid fa-database">
-            <Link to="/user-power-bi-data">View Data</Link>
-          </CDBSidebarMenuItem> */}
-
-          <CDBSidebarMenuItem icon="fa-solid fa-server">
-            <Link to="/user-uploaded-data">Data</Link>
-          </CDBSidebarMenuItem>
-          {/* <CDBSidebarMenuItem icon="fa-solid fa-database">
-            <Link to="/users-column-mapping">Column Mapping</Link>
-          </CDBSidebarMenuItem> */}
-
-          <CDBSidebarMenuItem icon="fa-solid fa-backward">
-            <button
-              type="button"
-              className="btn btn-link p-0 text-decoration-none text-black"
-              data-bs-toggle="modal"
-              data-bs-target="#logout-modal"
-            >
-              Logout
-            </button>
-          </CDBSidebarMenuItem>
-        </CDBSidebarMenu>
-      </CDBSidebarContent>
-    </CDBSidebar>
-  );
-};
 
 const UserLandingPage = () => {
   const navigate = useNavigate();
-  const [file, setFile] = useState(null);
+  const [files, setFiles] = useState([]);
+  const [files2, setFiles2] = useState([]);
+  const [files3, setFiles3] = useState([]);
   const [excelColumns, setExcelColumns] = useState([]);
-  const [backendColumns, setBackendColumns] = useState([
-    "Text 1", "Text 2", "Text 3", "Text 4", "Text 5", "Text 6", "Text 7", "Text 8", "Text 9", "Text 10",
-    "Text 11", "Text 12", "Text 13", "Text 14", "Text 15", "Numeric 1", "Numeric 2", "Numeric 3", "Numeric 4",
-    "Numeric 5", "Numeric 6", "Numeric 7", "Numeric 8", "Numeric 9", "Numeric 10", "Numeric 11", "Numeric 12",
-    "Spare Text 1", "Spare Text 2", "Spare Numeric 1", "Spare Numeric 2",
+  const [backendColumns] = useState([
+    "Text 1",
+    "Text 2",
+    "Text 3",
+    "Text 4",
+    "Text 5",
+    "Text 6",
+    "Text 7",
+    "Text 8",
+    "Text 9",
+    "Text 10",
+    "Text 11",
+    "Text 12",
+    "Text 13",
+    "Text 14",
+    "Text 15",
+    "Numeric 1",
+    "Numeric 2",
+    "Numeric 3",
+    "Numeric 4",
+    "Numeric 5",
+    "Numeric 6",
+    "Numeric 7",
+    "Numeric 8",
+    "Numeric 9",
+    "Numeric 10",
+    "Numeric 11",
+    "Numeric 12",
+    "Spare Text 1",
+    "Spare Text 2",
+    "Spare Numeric 1",
+    "Spare Numeric 2",
   ]);
   const [columnMapping, setColumnMapping] = useState({});
   const [jsonData, setJsonData] = useState([]);
+  const [jsonData2, setJsonData2] = useState([]);
   const [showMapping, setShowMapping] = useState(false);
 
   const handleLogout = () => {
@@ -94,10 +63,16 @@ const UserLandingPage = () => {
   };
 
   const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-    setFile(selectedFile);
-    handleExcelColumns(selectedFile);
+    const selectedFiles = Array.from(event.target.files);
+    setFiles(selectedFiles);
+    selectedFiles.forEach(handleExcelColumns);
   };
+
+   const handleFileChange2 = (event) => {
+     const selectedFiles = Array.from(event.target.files);
+     setFiles2(selectedFiles);
+     selectedFiles.forEach(handleExcelColumns2);
+   };
 
   const handleExcelColumns = (file) => {
     const reader = new FileReader();
@@ -108,85 +83,175 @@ const UserLandingPage = () => {
       const worksheet = workbook.Sheets[sheetName];
       const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
       if (jsonData.length > 0) {
-        setExcelColumns(jsonData[0]);
-        setJsonData(XLSX.utils.sheet_to_json(worksheet));
+        setExcelColumns((prev) => [...prev, ...jsonData[0]]);
+        setJsonData((prev) => [
+          ...prev,
+          ...XLSX.utils.sheet_to_json(worksheet),
+        ]);
       }
     };
     reader.readAsArrayBuffer(file);
   };
 
-  useEffect(() => {
-    if (excelColumns.length > 0) {
-      const allColumnsMatch = backendColumns.every((col) =>
-        excelColumns.includes(col)
-      );
-      if (!allColumnsMatch) {
-        toast.info("Columns do not match. Please map the columns.");
-        setShowMapping(true);
-      } else {
-        setShowMapping(false);
+
+  const handleExcelColumns2 = (file) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: "array" });
+      const sheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[sheetName];
+      const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+      if (jsonData.length > 0) {
+        // setExcelColumns2((prev) => [...prev, ...jsonData[0]]);
+        setJsonData2((prev) => [
+          ...prev,
+          ...XLSX.utils.sheet_to_json(worksheet),
+        ]);
       }
-    }
-  }, [excelColumns]);
+    };
+    reader.readAsArrayBuffer(file);
+  };
+
+ useEffect(() => {
+   const checkAndSubmitFiles = async () => {
+     if (excelColumns.length > 0) {
+       const allColumnsMatch = backendColumns.every((col) =>
+         excelColumns.includes(col)
+       );
+       console.log(allColumnsMatch);
+
+       switch (true) {
+         case allColumnsMatch:
+           await handleSubmit();
+           setShowMapping(false);
+           break;
+
+         case !allColumnsMatch:
+           toast.info("Columns do not match. Please map the columns.");
+           setShowMapping(true);
+           break;
+
+         default:
+           // This case will never be reached in the current logic,
+           // but it's good practice to include it for completeness
+           console.log("Unexpected condition in column matching");
+       }
+     }
+   };
+
+   checkAndSubmitFiles();
+ }, [excelColumns]);
 
   const handleColumnMapping = (excelColumn, backendColumn) => {
     setColumnMapping((prev) => ({ ...prev, [excelColumn]: backendColumn }));
   };
 
   const handleSubmit = async () => {
-    if (!file) {
+    if (files.length === 0) {
       toast.error("Please select a file to upload.");
       return;
     }
 
     try {
       const token = localStorage.getItem("token");
-      let dataToUpload = jsonData;
 
-      if (Object.keys(columnMapping).length > 0) {
-        dataToUpload = jsonData.map((row) => {
-          const newRow = {};
-          Object.entries(row).forEach(([excelCol, value]) => {
-            const backendCol = columnMapping[excelCol] || excelCol;
-            newRow[backendCol] = value;
+      for (const file of files) {
+        let dataToUpload = jsonData;
+
+        if (Object.keys(columnMapping).length > 0) {
+          dataToUpload = jsonData.map((row) => {
+            const newRow = {};
+            Object.entries(row).forEach(([excelCol, value]) => {
+              const backendCol = columnMapping[excelCol] || excelCol;
+              newRow[backendCol] = value;
+            });
+            return newRow;
           });
-          return newRow;
-        });
-      }
-
-      const response = await axios.post(
-        "https://testsignuplogin.onrender.com/login/upload/1",
-        dataToUpload,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
         }
-      );
 
-      if (response.status === 200) {
-        console.log("File uploaded successfully:", response.data);
-        toast.success("Data added successfully!");
-        setFile(null);
-        setExcelColumns([]);
-        setColumnMapping({});
-        setJsonData([]);
-        setShowMapping(false);
-      } else {
-        console.error("Upload failed:", response.data.message);
-        toast.error("Upload failed. Please try again.");
+        const response = await axios.post(
+          "https://testsignuplogin.onrender.com/login/upload/1",
+          dataToUpload,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          console.log("File uploaded successfully:", response.data);
+          toast.success("Data added successfully!");
+        } else {
+          console.error("Upload failed:", response.data.message);
+          toast.error("Upload failed. Please try again.");
+        }
       }
+
+      setFiles([]);
+      setExcelColumns([]);
+      setColumnMapping({});
+      setJsonData([]);
+      setShowMapping(false);
     } catch (error) {
       console.error("Error uploading file:", error.message);
       toast.error("Error uploading file. Please try again.");
     }
   };
 
+  const handleSubmit2 = async () => {
+    console.log("table 2")
+    if (files2.length === 0) {
+      toast.error("Please select a file to upload for Table 2.");
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem("token");
+
+      for (const file of files2) {
+        let dataToUpload = jsonData2;
+
+        const response = await axios.post(
+          "https://testsignuplogin.onrender.com/login/upload/2", // Changed to /2 for Table 2
+          dataToUpload,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          console.log("File uploaded successfully for Table 2:", response.data);
+          toast.success("Data added successfully for Table 2!");
+        } else {
+          console.error("Upload failed for Table 2:", response.data.message);
+          toast.error("Upload failed for Table 2. Please try again.");
+        }
+      }
+
+      setFiles2([]);
+     
+     
+      setJsonData2([]);
+ 
+    } catch (error) {
+      console.error("Error uploading file for Table 2:", error.message);
+      toast.error("Error uploading file for Table 2. Please try again.");
+    }
+  };
+
+
+
+
   return (
     <>
       <div className="d-flex">
-        <Sidebar />
+        <UserSidebar />
         <div className="flex-grow-1">
           <UserNavbar />
           <div className="landing-page-main-div">
@@ -232,7 +297,9 @@ const UserLandingPage = () => {
                     </Button>
                   </div>
                   <p className="text-white mt-2">
-                    {file ? `Selected file: ${file.name}` : "No file selected"}
+                    {files.length > 0
+                      ? `${files.length} files selected`
+                      : "No files selected"}
                   </p>
                   <div
                     style={{ width: "100%" }}
@@ -263,31 +330,34 @@ const UserLandingPage = () => {
                     }}
                   />
                   <p className="text-white text-center fst-italic">
-                    Select table 2 files
+                    Select supplier files
                   </p>
                   <div className="card py-4 shadow-for-card">
                     <div className="card-body text-center">
-                      <img src={file_1} alt="" />
+                      <img src={file_2} alt="" />
                     </div>
                     <input
                       type="file"
-                      id="fileInput"
+                      id="fileInput2"
                       accept=".xls,.xlsx,.xlsm,.xlsb"
-                      onChange={handleFileChange}
+                      multiple
+                      onChange={handleFileChange2}
                       style={{ display: "none" }}
                     />
                     <Button
                       variant=""
                       className="px-5 py-2 m-auto text-black fst-italic"
                       onClick={() =>
-                        document.getElementById("fileInput").click()
+                        document.getElementById("fileInput2").click()
                       }
                     >
                       Browse Your File
                     </Button>
                   </div>
                   <p className="text-white mt-2">
-                    {file ? `Selected file: ${file.name}` : "No file selected"}
+                    {files2.length > 0
+                      ? `${files2.length} files selected`
+                      : "No files selected"}
                   </p>
                   <div
                     style={{ width: "100%" }}
@@ -296,20 +366,20 @@ const UserLandingPage = () => {
                     <Button
                       style={{ width: "60%" }}
                       className="button new-btn2"
-                      onClick={handleSubmit}
-                      disabled={showMapping}
+                      onClick={handleSubmit2}
                     >
                       <span className="button-content">Submit Data</span>
                     </Button>
                   </div>
                 </div>
 
+                {/* Table 3 */}
                 <div className="col-md-4">
                   <h5
                     className="card-title text-center"
                     style={{ color: "goldenrod" }}
                   >
-                    Variables
+                    Table 3
                   </h5>
                   <hr
                     style={{
@@ -319,32 +389,34 @@ const UserLandingPage = () => {
                     }}
                   />
                   <p className="text-white text-center fst-italic">
-                    Enter variables
+                    Select supplier files
                   </p>
                   <div className="card py-4 shadow-for-card">
                     <div className="card-body text-center">
-                      <img src={file_1} alt="" />
+                      <img src={file_3} alt="" />
                     </div>
                     <input
                       type="file"
-                      id="fileInput"
+                      id="fileInput3"
                       accept=".xls,.xlsx,.xlsm,.xlsb"
-                    
-                      onChange={handleFileChange}
+                      multiple
+                      // onChange={handleFileChange3}
                       style={{ display: "none" }}
                     />
                     <Button
                       variant=""
                       className="px-5 py-2 m-auto text-black fst-italic"
                       onClick={() =>
-                        document.getElementById("fileInput").click()
+                        document.getElementById("fileInput3").click()
                       }
                     >
                       Browse Your File
                     </Button>
                   </div>
                   <p className="text-white mt-2">
-                    {file ? `Selected file: ${file.name}` : "No file selected"}
+                    {files3.length > 0
+                      ? `${files3.length} files selected`
+                      : "No files selected"}
                   </p>
                   <div
                     style={{ width: "100%" }}
@@ -353,14 +425,16 @@ const UserLandingPage = () => {
                     <Button
                       style={{ width: "60%" }}
                       className="button new-btn2"
-                      onClick={handleSubmit}
-                      disabled={showMapping}
+                      // onClick={handleSubmit3}
+                      // disabled={showMapping3}
                     >
                       <span className="button-content">Submit Data</span>
                     </Button>
                   </div>
                 </div>
 
+                {/* Additional tables code can be similarly updated for multiple file uploads */}
+                {/* Mapping UI remains the same */}
                 {showMapping && (
                   <div className="col-md-8 h-50">
                     <h5
