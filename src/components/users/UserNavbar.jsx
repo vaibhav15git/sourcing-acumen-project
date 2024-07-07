@@ -7,7 +7,10 @@ import logo from "./Logo.png"
 
 const UserNavbar = () => {
   const username = localStorage.getItem('username');
-  console.log(username)
+    const firstLetter = username ? username.charAt(0).toUpperCase() : "U";
+
+  // console.log(username)
+  // console.log(firstLetter);
   return (
     <>
       <nav>
@@ -31,7 +34,7 @@ const UserNavbar = () => {
                       color: "white",
                     }}
                   >
-                    VJ
+                    {firstLetter}
                   </button>
                   <span style={{ fontSize: "12px" }} className="mx-1">
                     {username}

@@ -56,6 +56,7 @@ const UserLandingPage = () => {
   const [jsonData, setJsonData] = useState([]);
   const [jsonData2, setJsonData2] = useState([]);
   const [showMapping, setShowMapping] = useState(false);
+  const [matchedColumns, setMatchedColumns] = useState([]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -113,35 +114,69 @@ const UserLandingPage = () => {
     reader.readAsArrayBuffer(file);
   };
 
- useEffect(() => {
-   const checkAndSubmitFiles = async () => {
-     if (excelColumns.length > 0) {
-       const allColumnsMatch = backendColumns.every((col) =>
-         excelColumns.includes(col)
-       );
-       console.log(allColumnsMatch);
+//  useEffect(() => {
+//    const checkAndSubmitFiles = async () => {
+//      if (excelColumns.length > 0) {
+//        const allColumnsMatch = backendColumns.every((col) =>
+//          excelColumns.includes(col)
+//        );
+//        console.log(allColumnsMatch);
 
-       switch (true) {
-         case allColumnsMatch:
-           await handleSubmit();
-           setShowMapping(false);
-           break;
+//        switch (true) {
+//          case allColumnsMatch:
+//            await handleSubmit();
+//            setShowMapping(false);
+//            break;
 
-         case !allColumnsMatch:
-           toast.info("Columns do not match. Please map the columns.");
-           setShowMapping(true);
-           break;
+//          case !allColumnsMatch:
+//            toast.info("Columns do not match. Please map the columns.");
+//            setShowMapping(true);
+//            break;
 
-         default:
-           // This case will never be reached in the current logic,
-           // but it's good practice to include it for completeness
-           console.log("Unexpected condition in column matching");
-       }
-     }
-   };
+//          default:
+//            // This case will never be reached in the current logic,
+//            // but it's good practice to include it for completeness
+//            console.log("Unexpected condition in column matching");
+//        }
+//      }
+//    };
 
-   checkAndSubmitFiles();
- }, [excelColumns]);
+//    checkAndSubmitFiles();
+//  }, [excelColumns]);
+
+
+useEffect(() => {
+  const checkAndSubmitFiles = async () => {
+    if (excelColumns.length > 0) {
+      const matched = backendColumns.filter((col) =>
+        excelColumns.includes(col)
+      );
+      setMatchedColumns(matched);
+
+      const allColumnsMatch = backendColumns.every((col) =>
+        excelColumns.includes(col)
+      );
+      console.log(allColumnsMatch);
+
+      switch (true) {
+        case allColumnsMatch:
+          await handleSubmit();
+          setShowMapping(false);
+          break;
+
+        case !allColumnsMatch:
+          toast.info("Columns do not match. Please map the columns.");
+          setShowMapping(true);
+          break;
+
+        default:
+          console.log("Unexpected condition in column matching");
+      }
+    }
+  };
+
+  checkAndSubmitFiles();
+}, [excelColumns]);
 
   const handleColumnMapping = (excelColumn, backendColumn) => {
     setColumnMapping((prev) => ({ ...prev, [excelColumn]: backendColumn }));
@@ -393,7 +428,7 @@ const UserLandingPage = () => {
                   </p>
                   <div className="card py-4 shadow-for-card">
                     <div className="card-body text-center">
-                      <img src={file_3} alt="" />
+                      <img src={file_3} alt="" height={100} />
                     </div>
                     <input
                       type="file"
@@ -455,25 +490,33 @@ const UserLandingPage = () => {
                       style={{ height: "400px", overflowY: "auto" }}
                     >
                       <div className="card-body">
-                        {excelColumns.map((excelCol) => (
-                          <div key={excelCol} className="mb-3">
-                            <label className="text-black">{excelCol}: </label>
-                            <select
-                              className="form-select"
-                              value={columnMapping[excelCol] || ""}
-                              onChange={(e) =>
-                                handleColumnMapping(excelCol, e.target.value)
-                              }
-                            >
-                              <option value="">Select Backend Column</option>
-                              {backendColumns.map((backendCol) => (
-                                <option key={backendCol} value={backendCol}>
-                                  {backendCol}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                        ))}
+                        {excelColumns.map((excelCol) => {
+                          const isMatched = matchedColumns.includes(excelCol);
+                          const isMapped =
+                            columnMapping[excelCol] !== undefined;
+                          const isDisabled = isMatched && !isMapped;
+
+                          return (
+                            <div key={excelCol} className="mb-3">
+                              <label className="text-black">{excelCol}: </label>
+                              <select
+                                className="form-select"
+                                value={columnMapping[excelCol] || excelCol}
+                                onChange={(e) =>
+                                  handleColumnMapping(excelCol, e.target.value)
+                                }
+                                disabled={isDisabled}
+                              >
+                                <option value={excelCol}>{excelCol}</option>
+                                {backendColumns.map((backendCol) => (
+                                  <option key={backendCol} value={backendCol}>
+                                    {backendCol}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                          );
+                        })}
                         <Button
                           className="btn btn-primary mt-3"
                           onClick={() => {

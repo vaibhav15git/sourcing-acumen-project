@@ -387,7 +387,7 @@ const UserUploadedData = () => {
                   </table>
                 </div>
                 <nav
-                  className="pagination-container float-end me-5"
+                  className="pagination-container float-start me-5"
                   aria-label="Page navigation"
                 >
                   <ul className="pagination">
@@ -397,7 +397,7 @@ const UserUploadedData = () => {
                       }`}
                     >
                       <a
-                        className="page-link"
+                        className="page-link bg-body-secondary text-black"
                         href="#"
                         onClick={(e) => {
                           e.preventDefault();
@@ -416,7 +416,7 @@ const UserUploadedData = () => {
                         }`}
                       >
                         <a
-                          className="page-link"
+                          className="page-link bg-body-secondary text-black"
                           href="#"
                           onClick={(e) => {
                             e.preventDefault();
@@ -433,7 +433,7 @@ const UserUploadedData = () => {
                       }`}
                     >
                       <a
-                        className="page-link"
+                        className="page-link bg-body-secondary text-black"
                         href="#"
                         onClick={(e) => {
                           e.preventDefault();

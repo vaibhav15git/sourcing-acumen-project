@@ -241,69 +241,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./AdminUserList.css";
-import {
-  CDBSidebar,
-  CDBSidebarHeader,
-  CDBSidebarMenuItem,
-  CDBSidebarContent,
-  CDBSidebarMenu,
-} from "cdbreact";
+
 
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Logo from "./Logo.png";
+import AdminSidebar from "./AdminSidebar";
 
-const Sidebar = () => {
-  return (
-    <CDBSidebar textColor="#333" backgroundColor="#f0f0f0">
-      <CDBSidebarHeader prefix={<i className="fa fa-bars" />}>
-        <div
-          className="container"
-          style={{ display: "flex", alignItems: "center" }}
-        >
-          <img
-            src={Logo}
-            alt=""
-            style={{ width: "100%", marginTop: "-20px", marginLeft: "-30px" }}
-          />
-          {/* <h6 className="ms-2">Resourcing Acumen</h6> */}
-        </div>
-      </CDBSidebarHeader>
-      <CDBSidebarContent>
-        <CDBSidebarMenu>
-          <CDBSidebarMenuItem icon="th-large">
-            <Link to="/dashboard">Dashboard</Link>
-          </CDBSidebarMenuItem>
-          {/* <CDBSidebarMenuItem icon="fa-solid fa-upload">
-            <Link to="/upload-files">Upload Data</Link>
-          </CDBSidebarMenuItem> */}
-          {/* <CDBSidebarMenuItem icon="fa-solid fa-database">
-            <Link to="/power-bi-data">View Data</Link>
-          </CDBSidebarMenuItem> */}
-          <CDBSidebarMenuItem icon="fa-solid fa-server">
-            <Link to="/data">Data</Link>
-          </CDBSidebarMenuItem>
-          <CDBSidebarMenuItem icon="fa-solid fa-user-tie">
-            <Link to="/admin-user-list">Admin</Link>
-          </CDBSidebarMenuItem>
-          {/* <CDBSidebarMenuItem icon="fa-solid fa-database">
-            <Link to="/column-mapping">Column Mapping</Link>
-          </CDBSidebarMenuItem> */}
-          <CDBSidebarMenuItem icon="fa-solid fa-backward">
-            <button
-              type="button"
-              className="btn btn-link p-0 text-decoration-none text-black"
-              data-bs-toggle="modal"
-              data-bs-target="#logout-modal"
-            >
-              Logout
-            </button>
-          </CDBSidebarMenuItem>
-        </CDBSidebarMenu>
-      </CDBSidebarContent>
-    </CDBSidebar>
-  );
-};
+
 
 const AdminUserList = () => {
   const [formData, setFormData] = useState({
@@ -443,7 +387,7 @@ const AdminUserList = () => {
 
   return (
     <div className="d-flex">
-      <Sidebar />
+      <AdminSidebar />
       <div className="flex-grow-1">
         <div className="container-fluid mt-4">
           <div className="row align-items-center">
@@ -456,7 +400,7 @@ const AdminUserList = () => {
               <div className="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
                 <div>
                   <button
-                  style={{backgroundColor:"goldenrod"}}
+                  style={{backgroundColor:"skyblue"}}
                     type="button"
                     className="btn me-5 text-blue"
                     data-bs-toggle="modal"

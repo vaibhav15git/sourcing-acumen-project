@@ -105,7 +105,7 @@ const Table2 = () => {
                   </table>
                 </div>
                 <nav
-                  className="pagination-container float-end me-5"
+                  className="pagination-container float-start me-5"
                   aria-label="Page navigation"
                 >
                   <ul className="pagination">
