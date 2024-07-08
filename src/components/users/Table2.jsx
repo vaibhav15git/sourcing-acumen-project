@@ -15,7 +15,7 @@ const Table2 = () => {
   const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
 
-  const rowsPerPage = 1;
+  const rowsPerPage = 10;
 
   useEffect(() => {
     setLoading(true);

@@ -438,15 +438,17 @@ useEffect(() => {
                       // onChange={handleFileChange3}
                       style={{ display: "none" }}
                     />
-                    <Button
-                      variant=""
-                      className="px-5 py-2 m-auto text-black fst-italic"
-                      onClick={() =>
-                        document.getElementById("fileInput3").click()
-                      }
-                    >
-                      Browse Your File
-                    </Button>
+                    <Link to="/choose-variables-page"
+                  
+                        variant=""
+                        className="px-5 py-2 m-auto text-black fst-italic"
+                        // onClick={() =>
+                        //   document.getElementById("fileInput3").click()
+                        // }
+                      >
+                        Browse Your File
+                   
+                    </Link>
                   </div>
                   <p className="text-white mt-2">
                     {files3.length > 0
@@ -471,61 +473,82 @@ useEffect(() => {
                 {/* Additional tables code can be similarly updated for multiple file uploads */}
                 {/* Mapping UI remains the same */}
                 {showMapping && (
-                  <div className="col-md-8 h-50">
-                    <h5
-                      className="card-title text-center"
-                      style={{ color: "goldenrod" }}
-                    >
-                      Map Columns
-                    </h5>
-                    <hr
-                      style={{
-                        color: "goldenrod",
-                        fontWeight: "bold",
-                        borderTop: "3px solid goldenrod",
-                      }}
-                    />
-                    <div
-                      className="card py-4 shadow-for-card"
-                      style={{ height: "400px", overflowY: "auto" }}
-                    >
-                      <div className="card-body">
-                        {excelColumns.map((excelCol) => {
-                          const isMatched = matchedColumns.includes(excelCol);
-                          const isMapped =
-                            columnMapping[excelCol] !== undefined;
-                          const isDisabled = isMatched && !isMapped;
+                  <div className="container-fluid">
+                    <div className="row">
+                      <div className="col-md-12 column-list-modal">
+                        <div className="row inside-model-row">
+                          <div className="col-11 col-sm-11 col-md-9 col-lg-6 col-xl-6 col-xxl-6 inside-model">
+                            <h5
+                              className="card-title text-center"
+                              style={{ color: "goldenrod" }}
+                            >
+                              Map Columns
+                            </h5>
+                            <hr
+                              style={{
+                                color: "goldenrod",
+                                fontWeight: "bold",
+                                borderTop: "3px solid goldenrod",
+                              }}
+                            />
+                            <div
+                              className="card py-4 shadow-for-card"
+                              style={{ height: "400px", overflowY: "auto" }}
+                            >
+                              <div className="card-body">
+                                {excelColumns.map((excelCol) => {
+                                  const isMatched =
+                                    matchedColumns.includes(excelCol);
+                                  const isMapped =
+                                    columnMapping[excelCol] !== undefined;
+                                  const isDisabled = isMatched && !isMapped;
 
-                          return (
-                            <div key={excelCol} className="mb-3">
-                              <label className="text-black">{excelCol}: </label>
-                              <select
-                                className="form-select"
-                                value={columnMapping[excelCol] || excelCol}
-                                onChange={(e) =>
-                                  handleColumnMapping(excelCol, e.target.value)
-                                }
-                                disabled={isDisabled}
-                              >
-                                <option value={excelCol}>{excelCol}</option>
-                                {backendColumns.map((backendCol) => (
-                                  <option key={backendCol} value={backendCol}>
-                                    {backendCol}
-                                  </option>
-                                ))}
-                              </select>
+                                  return (
+                                    <div key={excelCol} className="mb-3">
+                                      <label className="text-black">
+                                        {excelCol}:{" "}
+                                      </label>
+                                      <select
+                                        className="form-select"
+                                        value={
+                                          columnMapping[excelCol] || excelCol
+                                        }
+                                        onChange={(e) =>
+                                          handleColumnMapping(
+                                            excelCol,
+                                            e.target.value
+                                          )
+                                        }
+                                        disabled={isDisabled}
+                                      >
+                                        <option value={excelCol}>
+                                          {excelCol}
+                                        </option>
+                                        {backendColumns.map((backendCol) => (
+                                          <option
+                                            key={backendCol}
+                                            value={backendCol}
+                                          >
+                                            {backendCol}
+                                          </option>
+                                        ))}
+                                      </select>
+                                    </div>
+                                  );
+                                })}
+                                <Button
+                                  className="btn btn-primary mt-3"
+                                  onClick={() => {
+                                    setShowMapping(false);
+                                    alert("Please submit the file");
+                                  }}
+                                >
+                                  Confirm Mapping
+                                </Button>
+                              </div>
                             </div>
-                          );
-                        })}
-                        <Button
-                          className="btn btn-primary mt-3"
-                          onClick={() => {
-                            setShowMapping(false);
-                            alert("Please submit the file");
-                          }}
-                        >
-                          Confirm Mapping
-                        </Button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

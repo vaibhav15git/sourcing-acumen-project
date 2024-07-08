@@ -258,3 +258,24 @@
 
  
 }
+.column-list-modal{
+  position: absolute;
+  height: 130vh !important;
+  top: 0%;
+  left: 0%;
+  z-index: 5000;
+  background: rgba(0, 0, 0, 0.8) !important;
+  /* opacity: 80%; */
+
+}
+
+.inside-model-row{
+  /* position: absolute; */
+  /* top: 300 !important; */
+  margin-top: 7% !important;
+  justify-content: center !important;
+  align-items: center !important;;
+}
+.inside-model{
+  opacity: 100% !important;
+}
